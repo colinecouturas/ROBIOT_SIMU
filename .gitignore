@@ -1,6 +1,8 @@
 
 *.db
 
+*.vcxproj
+
 *.ipch
 
 *.opendb
@@ -9,6 +11,9 @@ CCTP_ROBIOT_V1R0.pdf
 
 normes_cpp_V1R0.pdf
 
-ROBIOT_SIMU/.vs/ROBIOT_SIMU/v16/.suo
+ROBIOT_SIMU/.vs/*
+ROBIOT_SIMU/Debug/*
+ROBIOT_SIMU/x64/Debug/*
 
-ROBIOT_SIMU/.vs/ROBIOT_SIMU/v16/Browse.VC.db-shm
+
+*.filters
