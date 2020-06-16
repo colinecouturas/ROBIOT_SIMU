@@ -2,8 +2,8 @@
 
 coordonnees CCommande::getCoordonnees(int iNumero)
 {
-	if (iNumero < tab_coordonnees.size()) {
-		return tab_coordonnees[iNumero];
+	if (iNumero < tabCoordonnees.size()) {
+		return tabCoordonnees[iNumero];
 	}
 }
 
@@ -13,11 +13,11 @@ void CCommande::lireTableau(){
 	file.open("LISTE DE CONTROLE");
 	if (file) {
 			do{
-				for (int i = 0; i < tab_coordonnees.size(); i++) {
+				for (int i = 0; i < tabCoordonnees.size(); i++) {
 					coordonnees point;
 					file >> point.x;
 					file >> point.y;
-					tab_coordonnees.push_back(point);
+					tabCoordonnees.push_back(point);
 				}
 		}while(!file.eof());
 	}
