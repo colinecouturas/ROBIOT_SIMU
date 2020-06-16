@@ -1,4 +1,20 @@
 #pragma once
+
+/**************************************************************
+*
+* Reproduction et diffusion interdites.
+* Developpé par INSA Rennes - 5 CDTI : COUTURAS / BODIN 
+* Projet ROBIOT
+*
+* SOURCE : CMesure.h
+* PRESENTATION : Fichier header permettant de savoir si le Robiot est en train de réaliser des mesures.
+*
+* AUTEUR : BODIN / COUTURAS
+* VERSION CVS : V1
+* DATE : 16/06/20
+*
+***************************************************************/
+
 class CMesure
 {
 	/*Le cycle de mesures prend une durée moyenne de cinq minutes par arbre 
