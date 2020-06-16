@@ -7,10 +7,10 @@ class CMesure
 		m_bMesure = false;
 	}
 
-	int getMesure() { return m_bMesure; }
+	bool getMesure() { return m_bMesure; }
 	void setMesure(bool bMesure) { m_bMesure = bMesure; }
 
 private:
-	int m_bMesure;
+	bool m_bMesure;
 };
 
