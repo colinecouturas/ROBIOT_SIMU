@@ -17,10 +17,15 @@ class CCapteur
 {
 	
 public:
+	CCapteur() {
+		tabCoordonneesObstacles.clear();
+	}
+
 	int lireCartographie();
 
 private:
 
+	std::vector<coordonnees> tabCoordonneesObstacles;
 
 	enum {
 		bordure =1,

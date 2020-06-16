@@ -10,20 +10,30 @@ using namespace std;
 int CCapteur::lireCartographie()
 {
 	ifstream file;
-	file.open("CARTOGRAPHIE");
-	/*if (file) {
+	int x = 0;
+	int y = 0;
+	file.open("CARTOGRAPHIE.txt");
+	if (file) {
 		do {
-			for (int i = 0; i < tab_coordonnees.size(); i++) {
-				coordonnees point;
-				file >> point.x;
-				file >> point.y;
-				tab_coordonnees.push_back(point);
+			char c;
+			file.get(c);
+			if (c == '\0'){
+					y += 1;
+					x = 0;
 			}
+			else if (c != ' ' ) {
+				tabCoordonneesObstacles.push_back(coordonnees{ x, y });
+				x = +1;
+				
+			}			
+			else x = +1;
+			
 		} while (!file.eof());
 	}
 	else {
 		cout << "Probleme ouverture du fichier." << endl;
-	}*/
+		return 1;
+	}
 	file.close();
 	return 0;
 }
