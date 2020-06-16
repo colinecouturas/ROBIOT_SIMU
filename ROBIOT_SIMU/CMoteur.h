@@ -1,7 +1,8 @@
 #pragma once
 class CMoteur
 {
-	
+
+public:
 	CMoteur() {
 		m_bMoteur = false;
 	}
