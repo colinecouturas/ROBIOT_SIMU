@@ -1,12 +1,21 @@
 #pragma once
+
+typedef struct {
+	int x;
+	int y;
+} coordonnees;
+
 class CCompas
 {
+public: 
+
 	CCompas() {
 		m_cPoint = coordonnees{ 0,0 };
 	}
 
 	void setCompas(coordonnees point) {
-		m_cPoint = point;
+		m_cPoint.x = point.x;
+		m_cPoint.y = point.y;
 	}
 
 	void setCompas(int iX, int iY) {
@@ -26,11 +35,9 @@ class CCompas
 		return m_cPoint.y;
 	}
 
+
 private:
 	coordonnees m_cPoint;
 };
 
-typedef struct {
-	int x;
-	int y;
-} coordonnees;
+

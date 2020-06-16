@@ -9,6 +9,9 @@
 * DATE : 16/06/2020
 ***************************************************************/
 #include <cstdio>
+#include <fstream>
+#include <vector>
+#include "CCompas.h"
 
 class CCapteur
 {

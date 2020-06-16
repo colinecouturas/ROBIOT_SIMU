@@ -9,14 +9,21 @@ using namespace std;
 
 int CCapteur::lireCartographie()
 {
-	FILE* pFile;
-	pFile = fopen("CARTOGRPAHIE","r");
-	if (pFile == NULL) {
-		cout << "Probleme ouverture du fichier." << endl;
+	ifstream file;
+	file.open("CARTOGRAPHIE");
+	/*if (file) {
+		do {
+			for (int i = 0; i < tab_coordonnees.size(); i++) {
+				coordonnees point;
+				file >> point.x;
+				file >> point.y;
+				tab_coordonnees.push_back(point);
+			}
+		} while (!file.eof());
 	}
 	else {
-
-	}
-
+		cout << "Probleme ouverture du fichier." << endl;
+	}*/
+	file.close();
 	return 0;
 }
