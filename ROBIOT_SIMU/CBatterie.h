@@ -1,6 +1,8 @@
 #pragma once
 class CBatterie
 {
+
+public:
 	CBatterie() {
 		m_iBatterie = 100;
 	}

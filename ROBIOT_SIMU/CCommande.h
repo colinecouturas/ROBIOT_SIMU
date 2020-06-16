@@ -16,6 +16,6 @@ public:
 	void lireTableau();
 
 private:
-	vector<coordonnees> tab_coordonnees;
+	vector<coordonnees> tabCoordonnees;
 };
 
