@@ -22,11 +22,15 @@ int main()
 
 	int i = 0;
 	CRobiot petitRobiot = CRobiot();
+	coordonnees pointInitial = { 0, 0 };
 
 	for (i = 0; i < petitRobiot.NombreArbre(); i++) {
+		
 		petitRobiot.Cheminer(i);
 		petitRobiot.Mesurer();
+		//revenir au point de départ
 	}
+	petitRobiot.Cheminer(pointInitial);
 	return (0);
 
 } /* main */
@@ -59,26 +63,29 @@ CRobiot::CRobiot()
 * 	int indexArbreSuivant : indice des coordonnées du prochain arbre.
 * 
 ***************************************************************/
+/*
+	* INFO CLIENT :
+	* 1 sur carte = 10m en réel
+	*/
+
 
 void CRobiot::Cheminer(int indexArbreSuivant)
 {	
 	coordonnees pointCourant = m_compasRobiot.getCompas();
 
 	/* Calclul de la disance (Dijkstra). */
+	int distance=1;
 
 	/* Allumage du moteur. */
 	m_moteurRobiot.setMoteur(true);
 
 	/* Consommation de la batterie. */
-		// carte mère ARM dont la consommation moyenne en fonctionnement est de 12.5 Watts.
+		//Carte mère ARM dont la consommation moyenne en fonctionnement est de 12.5 Watts.
 		//Le Moteur permet le déplacement du ROBIOT à une vitesse 0.42 m.s-1
-		//La puissance moyenne demandée par le moteur d’une roue est de 14,0 Watts.
+		//La puissance moyenne demandée par le moteur d’une roue est de 14,0 Watts = J/s.
+	int puissanceNecessaire = ((14*2)+12.5) * (distance / 0.42) ; //J
+	m_batterieRobiot.addBatterie(puissanceNecessaire);
 
-
-	/*
-	 * INFO CLIENT :
-	 * 1 sur carte = 10m en réel
-	 * /
 
 	/* Mise à jour des coordonnées du point courant une fois arrivé. */
 	m_compasRobiot.setCompas(m_commandeRobiot.getCoordonnees(indexArbreSuivant));
@@ -88,6 +95,33 @@ void CRobiot::Cheminer(int indexArbreSuivant)
 
 } /* Cheminer */
 
+
+void CRobiot::Cheminer(coordonnees pointDestination)
+{
+	coordonnees pointCourant = m_compasRobiot.getCompas();
+
+	/* Calclul de la disance (Dijkstra). */
+	int distance = 1;
+	//int distance = algoDisjkra(point entree , point sortie);
+
+	/* Allumage du moteur. */
+	m_moteurRobiot.setMoteur(true);
+
+	/* Consommation de la batterie. */
+		//Carte mère ARM dont la consommation moyenne en fonctionnement est de 12.5 Watts.
+		//Le Moteur permet le déplacement du ROBIOT à une vitesse 0.42 m.s-1
+		//La puissance moyenne demandée par le moteur d’une roue est de 14,0 Watts = J/s.
+	int puissanceNecessaire = ((14 * 2) + 12.5) * (distance / 0.42); //J
+	m_batterieRobiot.addBatterie(puissanceNecessaire);
+
+
+	/* Mise à jour des coordonnées du point courant une fois arrivé. */
+	m_compasRobiot.setCompas(pointDestination);
+
+	/* Extinction du moteur. */
+	m_moteurRobiot.setMoteur(false);
+
+} /* Cheminer */
 /**************************************************************
 *
 * METHODE : CRobiot::Mesurer()
@@ -97,13 +131,14 @@ void CRobiot::Cheminer(int indexArbreSuivant)
 
 void CRobiot::Mesurer()
 {
-	// carte mère ARM dont la consommation moyenne en fonctionnement est de 12.5 Watts.
-	// faire diminuer batteire, attendre '5mins'
-	//puissance moyenne consommée par le système de mesure est de 30,0 Watts.
 
 	m_mesureRobiot.setMesure(true);
 
-
+	// Carte mère ARM : 12.5 Watts.
+	// Système de mesure : 30,0 Watts.
+	// Durée de mesure : 5 mins
+	int puissanceNecessaire = (30 + 12.5) * 5 * 60; //J
+	m_batterieRobiot.addBatterie(puissanceNecessaire);
 
 	m_mesureRobiot.setMesure(false);
 
