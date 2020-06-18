@@ -36,22 +36,35 @@ int CCapteur::LireCartographie()
 	ifstream file;
 	int x = 0;
 	int y = 0;
+	bool isSet = false;
 	file.open("CARTOGRAPHIE.txt");
 	if (file) {
 		do {
 			char c;
 			file.get(c);
-			if (c == '\0'){
-					y += 1;
-					x = 0;
+			if (c == '\0') {
+				y += 1;
+				if (isSet == false) {
+					m_ilargeurTerrain = x;
+					isSet = true;
+				}
+				x = 0;
 			}
-			else if (c != ' ' ) {
-				tabCoordonneesObstacles.push_back(coordonnees{ x, y });
+			else if (c != ' ') {
+				tabCoordonneesObjets.push_back(coordonnees{ x, y });
+				if (c == 'X') {
+					tabCoordonneesObstacles.push_back(coordonnees{ x, y });
+				}
+				else if (c == 'O') {
+					tabCoordonneesArbres.push_back(coordonnees{ x, y });
+				}
 				x = +1;
 			}
-			else x = +1;
+			else x += 1;
 			
 		} while (!file.eof());
+		m_ilongueurTerrain = y; 
+		 
 	}
 	else {
 		cout << "Probleme ouverture du fichier." << endl;

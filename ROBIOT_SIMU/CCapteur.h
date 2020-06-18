@@ -32,6 +32,10 @@ public:
 private:
 
 	std::vector<coordonnees> tabCoordonneesObstacles;
+	std::vector<coordonnees> tabCoordonneesObjets;
+	std::vector<coordonnees> tabCoordonneesArbres;
+	int m_ilargeurTerrain ;
+	int m_ilongueurTerrain ;
 
 	enum {
 		bordure =1,
