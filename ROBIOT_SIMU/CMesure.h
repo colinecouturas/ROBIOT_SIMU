@@ -17,8 +17,11 @@
 
 class CMesure
 {
-	/*Le cycle de mesures prend une durée moyenne de cinq minutes par arbre 
-	et la puissance moyenne consommée par le système de mesure est de 30,0 Watts.*/
+	/* 
+	 * INFO CLIENT :
+	 * Le cycle de mesures prend une durée moyenne de cinq minutes par arbre 
+	 * et la puissance moyenne consommée par le système de mesure est de 30,0 Watts.
+	 */
 
 public:
 	CMesure() {

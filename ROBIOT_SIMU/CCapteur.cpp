@@ -24,11 +24,13 @@
 using namespace std;
 
 /**************************************************************
+*
 * METHODE : CCapteur::LireCartographie()
 * PRESENTATION : Récupération d'un couple de coordonnées d'un obstacle dans le tableau tabCoordoneesObstacle.
 *
 * SORTIE :
 * 	int : retourne 0 en cas de succès.
+* 
 ***************************************************************/
 
 int CCapteur::LireCartographie()
@@ -37,6 +39,8 @@ int CCapteur::LireCartographie()
 	int x = 0;
 	int y = 0;
 	bool isSet = false;
+
+	/* Ouverture du fichier de cartographie. */
 	file.open("CARTOGRAPHIE.txt");
 	if (file) {
 		do {
@@ -51,11 +55,14 @@ int CCapteur::LireCartographie()
 				x = 0;
 			}
 			else if (c != ' ') {
+				/* Remplissage d'un premier tableau rassemblant l'ensemble des éléments de la carte. */
 				tabCoordonneesObjets.push_back(coordonnees{ x, y });
 				if (c == 'X') {
+					/* Remplissage d'un tableau d'obstacles à partir de la cartographie. */
 					tabCoordonneesObstacles.push_back(coordonnees{ x, y });
 				}
 				else if (c == 'O') {
+					/* Remplissage d'un tableau d'arbres à partir de la cartographie. */
 					tabCoordonneesArbres.push_back(coordonnees{ x, y });
 				}
 				x = +1;

@@ -4,6 +4,7 @@
 #include "CBatterie.h"
 #include "CMesure.h"
 #include "CMoteur.h"
+
 /**************************************************************
 *
 * Reproduction et diffusion interdites.
@@ -23,7 +24,7 @@ class CRobiot
 {
 public:
 	CRobiot();
-	void Cheminer(int indexArbreSuivant); // fonction permettant d'aller au prochain arbre - allumer moteur se deplacer eteindre moteur
+	void Cheminer(int indexArbreSuivant); 
 	void Mesurer();
 
 	int NombreArbre();
