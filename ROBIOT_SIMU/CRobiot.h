@@ -1,5 +1,9 @@
 #pragma once
-
+#include "CCommande.h"
+#include "CCapteur.h"
+#include "CBatterie.h"
+#include "CMesure.h"
+#include "CMoteur.h"
 /**************************************************************
 *
 * Reproduction et diffusion interdites.
@@ -17,6 +21,19 @@
 
 class CRobiot
 {
+public:
+	CRobiot();
+	void Cheminer(int indexArbreSuivant); // fonction permettant d'aller au prochain arbre - allumer moteur se deplacer eteindre moteur
+	void Mesurer();
 
+	int NombreArbre();
+
+private:
+	CCapteur m_capteurRobiot;
+	CCompas m_compasRobiot;
+	CBatterie m_batterieRobiot;
+	CMesure m_mesureRobiot;
+	CMoteur m_moteurRobiot;
+	CCommande m_commandeRobiot;
 };
 

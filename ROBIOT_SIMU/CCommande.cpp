@@ -33,6 +33,11 @@ coordonnees CCommande::getCoordonnees(int iNumero)
 	}
 } /* getCoordonnees */
 
+int CCommande::NombreArbre()
+{
+	return tabCoordonnees.size();
+}
+
 /**************************************************************
 * METHODE : CCommande::lireTableau()
 * PRESENTATION : Remplissage du tableau tabCoordonnees en fonction des coordonnées du fichier LISTE DE CONTROLE.

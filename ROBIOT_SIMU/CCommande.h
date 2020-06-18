@@ -26,8 +26,8 @@ public:
 	CCommande() { ; };
 
 	coordonnees getCoordonnees(int iNumero);
-
-	void LireTableau();
+	int NombreArbre();
+	int LireTableau();
 
 private:
 	vector<coordonnees> tabCoordonnees;
