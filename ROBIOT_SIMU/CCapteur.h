@@ -34,7 +34,6 @@ public:
 	int getLargeurTerrain();
 
 private:
-
 	std::vector<coordonnees> tabCoordonneesObstacles;
 	std::vector<coordonnees> tabCoordonneesObjets;
 	std::vector<coordonnees> tabCoordonneesArbres;
@@ -42,7 +41,7 @@ private:
 	int m_ilongueurTerrain ;
 
 	enum {
-		bordure =1,
+		bordure = 1,
 		obstacle,
 		arbre
 	};

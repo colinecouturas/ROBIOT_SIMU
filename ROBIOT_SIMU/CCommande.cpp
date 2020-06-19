@@ -31,14 +31,29 @@
 coordonnees CCommande::getCoordonnees(int iNumero)
 {
 	if (iNumero < tabCoordonnees.size()) {
-		return tabCoordonnees[iNumero];
+		return (tabCoordonnees[iNumero]);
+	} else {
+		OutputDebugString("L'indice du tableau est trop grand.");
+		return (-1);
 	}
+
 } /* getCoordonnees */
+
+/**************************************************************
+*
+* METHODE : CCommande::NombreArbre()
+* PRESENTATION : Retourne le nombre d'arbre que le Robiot a à mesurer sur la cartographie.
+*
+* SORTIE : 
+* 	int : nombre d'arbres.
+* 
+***************************************************************/
 
 int CCommande::NombreArbre()
 {
-	return tabCoordonnees.size();
-}
+	return (tabCoordonnees.size());
+
+} /* NombreArbre */
 
 /**************************************************************
 *
@@ -49,9 +64,11 @@ int CCommande::NombreArbre()
 * 	int : retourne 0 en cas de succès.
 * 
 ***************************************************************/
+
 int CCommande::LireTableau()
 {
 	ifstream file;
+
 	/* Ouverture du fichier listant les arbres à mesurer. */
 	file.open("LISTE DE CONTROLE.txt");
 	if (file) {
@@ -60,7 +77,6 @@ int CCommande::LireTableau()
 			file >> point.x;
 			file >> point.y;
 			tabCoordonnees.push_back(point);
-			
 		}while(!file.eof());
 	}
 	else {
@@ -69,6 +85,7 @@ int CCommande::LireTableau()
 	}
 	file.close();
 	return (0);
+
 } /* LireTableau */
 
 
