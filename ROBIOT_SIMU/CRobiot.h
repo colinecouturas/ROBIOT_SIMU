@@ -30,6 +30,9 @@ public:
 	void Mesurer();
 
 	int NombreArbre();
+	int BatterieUtilisee();
+	int LargeurTerrain();
+	int LongueurTerrain();
 
 private:
 	CCapteur m_capteurRobiot;

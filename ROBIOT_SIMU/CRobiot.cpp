@@ -1,4 +1,5 @@
 #include "CRobiot.h"
+#include <math.h>
 
 /**************************************************************
 *
@@ -26,11 +27,18 @@ int main()
 
 	for (i = 0; i < petitRobiot.NombreArbre(); i++) {
 		
+		cout << "On se dirige vers l'arbre numero " << i+1 <<  endl;
 		petitRobiot.Cheminer(i);
+		cout << "On mesure l'arbre " << i+1  << endl;
 		petitRobiot.Mesurer();
 		//revenir au point de départ
 	}
 	petitRobiot.Cheminer(pointInitial);
+	cout << "c'est fini ! " << endl;
+	cout << "Le petit Robiot a utilise " << petitRobiot.BatterieUtilisee() << " J pour mesurer les arbres de ce terrain." << endl;
+	int tailleTerrain = petitRobiot.LargeurTerrain() * petitRobiot.LongueurTerrain();
+	cout << "Le terrain mesurait " << tailleTerrain << " m carre" << endl;
+	
 	return (0);
 
 } /* main */
@@ -74,7 +82,7 @@ void CRobiot::Cheminer(int indexArbreSuivant)
 	coordonnees pointCourant = m_compasRobiot.getCompas();
 
 	/* Calclul de la disance (Dijkstra). */
-	int distance=1;
+	int distance= algoDisjkra(m_compasRobiot.getCompas(), m_commandeRobiot.getCoordonnees(indexArbreSuivant));
 
 	/* Allumage du moteur. */
 	m_moteurRobiot.setMoteur(true);
@@ -95,13 +103,12 @@ void CRobiot::Cheminer(int indexArbreSuivant)
 
 } /* Cheminer */
 
-
 void CRobiot::Cheminer(coordonnees pointDestination)
 {
 	coordonnees pointCourant = m_compasRobiot.getCompas();
 
 	/* Calclul de la disance (Dijkstra). */
-	int distance = 1;
+	int distance = algoDisjkra(m_compasRobiot.getCompas(), pointDestination);
 	//int distance = algoDisjkra(point entree , point sortie);
 
 	/* Allumage du moteur. */
@@ -122,16 +129,21 @@ void CRobiot::Cheminer(coordonnees pointDestination)
 	m_moteurRobiot.setMoteur(false);
 
 } /* Cheminer */
+
+int CRobiot::algoDisjkra(coordonnees pointEntree, coordonnees pointSortie)
+{
+	int distance = sqrt(pow((pointSortie.y - pointEntree.y), 2) - pow((pointSortie.x - pointEntree.x), 2));
+	return distance;
+}
+
 /**************************************************************
 *
 * METHODE : CRobiot::Mesurer()
 * PRESENTATION : Mesure de l'arbre courant.
 *
 ***************************************************************/
-
 void CRobiot::Mesurer()
 {
-
 	m_mesureRobiot.setMesure(true);
 
 	// Carte mère ARM : 12.5 Watts.
@@ -156,4 +168,19 @@ int CRobiot::NombreArbre()
 	return m_commandeRobiot.NombreArbre();
 
 } /* NombreArbre */
+
+int CRobiot::BatterieUtilisee()
+{
+	return m_batterieRobiot.getBatterie();
+}
+
+int CRobiot::LargeurTerrain()
+{
+	return m_capteurRobiot.getLargeurTerrain();
+}
+
+int CRobiot::LongueurTerrain()
+{
+	return m_capteurRobiot.getLongueurTerrain();
+}
 

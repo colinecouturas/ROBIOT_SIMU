@@ -39,14 +39,14 @@ int CCapteur::LireCartographie()
 	int x = 0;
 	int y = 0;
 	bool isSet = false;
-
+	char c;
 	/* Ouverture du fichier de cartographie. */
 	file.open("CARTOGRAPHIE.txt");
 	if (file) {
 		do {
-			char c;
+			
 			file.get(c);
-			if (c == '\0') {
+			if (c == '\n') {
 				y += 1;
 				if (isSet == false) {
 					m_ilargeurTerrain = x;
@@ -65,12 +65,12 @@ int CCapteur::LireCartographie()
 					/* Remplissage d'un tableau d'arbres à partir de la cartographie. */
 					tabCoordonneesArbres.push_back(coordonnees{ x, y });
 				}
-				x = +1;
+				x += 1;
 			}
 			else x += 1;
 			
 		} while (!file.eof());
-		m_ilongueurTerrain = y; 
+		m_ilongueurTerrain = y+1; //car seulement y reour a la ligne
 		 
 	}
 	else {
@@ -80,3 +80,13 @@ int CCapteur::LireCartographie()
 	file.close();
 	return (0);
 } /* LireCartographie */
+
+int CCapteur::getLongueurTerrain()
+{
+	return m_ilongueurTerrain;
+}
+
+int CCapteur::getLargeurTerrain()
+{
+	return m_ilargeurTerrain;
+}

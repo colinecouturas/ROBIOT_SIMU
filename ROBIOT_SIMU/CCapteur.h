@@ -25,9 +25,13 @@ class CCapteur
 public:
 	CCapteur() {
 		tabCoordonneesObstacles.clear();
+		m_ilongueurTerrain = 0;
+		m_ilargeurTerrain = 0;
 	}
 
 	int LireCartographie();
+	int getLongueurTerrain();
+	int getLargeurTerrain();
 
 private:
 

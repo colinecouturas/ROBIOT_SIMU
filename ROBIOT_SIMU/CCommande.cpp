@@ -53,15 +53,14 @@ int CCommande::LireTableau()
 {
 	ifstream file;
 	/* Ouverture du fichier listant les arbres à mesurer. */
-	file.open("LISTE DE CONTROLE");
+	file.open("LISTE DE CONTROLE.txt");
 	if (file) {
 		do{
-			for (int i = 0; i < tabCoordonnees.size(); i++) {
-				coordonnees point;
-				file >> point.x;
-				file >> point.y;
-				tabCoordonnees.push_back(point);
-			}
+			coordonnees point;
+			file >> point.x;
+			file >> point.y;
+			tabCoordonnees.push_back(point);
+			
 		}while(!file.eof());
 	}
 	else {
