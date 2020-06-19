@@ -87,17 +87,17 @@ CRobiot::CRobiot()
 * METHODE : CRobiot::Cheminer(int indexArbreSuivant)
 * PRESENTATION : Déplacement du Robiot. Cheminement entre sa position courant et la position du prochain arbre.
 *
-* ENTREE : 
+* ENTREE :
 * 	int indexArbreSuivant : indice des coordonnées du prochain arbre.
-* 
+*
 ***************************************************************/
 
 void CRobiot::Cheminer(int indexArbreSuivant)
-{	
+{
 	coordonnees pointCourant = m_compasRobiot.getCompas();
 
 	/* Calclul de la disance (Dijkstra). */
-	int distance = algoDisjkra(m_compasRobiot.getCompas(), m_commandeRobiot.getCoordonnees(indexArbreSuivant));
+	int distance = Disjkra(m_compasRobiot.getCompas(), m_commandeRobiot.getCoordonnees(indexArbreSuivant));
 
 	/* INFO CLIENT :
 	 * 1 sur carte = 10 m en réel. */
@@ -111,15 +111,15 @@ void CRobiot::Cheminer(int indexArbreSuivant)
 	 * Vitesse : 0.42 m.
 	 * Moteur d'une roue : 14,0 Watts. */
 
-	/* Calcul de la puissance en Joule. */
-	int puissanceNecessaire = ((14 * 2) + 12.5) * (distance / 0.42); //J
+	 /* Calcul de la puissance en Joule. */
+	int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
 
 	/* Incrémentation de la batterie pour connaitre la consommation finale. */
 	m_batterieRobiot.addBatterie(puissanceNecessaire);
 
 
 	/* Mise à jour des coordonnées du point courant une fois arrivé. */
-	m_compasRobiot.setCompas(pointDestination);
+	m_compasRobiot.setCompas(m_commandeRobiot.getCoordonnees(indexArbreSuivant));
 
 	/* Extinction du moteur. */
 	m_moteurRobiot.setMoteur(false);
@@ -131,9 +131,9 @@ void CRobiot::Cheminer(int indexArbreSuivant)
 * METHODE : CRobiot::Cheminer(coordonnees pointDestination)
 * PRESENTATION : Déplacement du Robiot. Cheminement entre sa position courant et la position du prochain arbre.
 *
-* ENTREE : 
+* ENTREE :
 * 	coordonnees pointDestination : coordonnées du prochain arbre.
-* 
+*
 ***************************************************************/
 
 void CRobiot::Cheminer(coordonnees pointDestination)
@@ -141,7 +141,7 @@ void CRobiot::Cheminer(coordonnees pointDestination)
 	coordonnees pointCourant = m_compasRobiot.getCompas();
 
 	/* Calclul de la disance (Dijkstra). */
-	int distance = algoDisjkra(m_compasRobiot.getCompas(), pointDestination);
+	int distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
 
 	/* INFO CLIENT :
 	 * 1 sur carte = 10 m en réel. */
@@ -155,8 +155,8 @@ void CRobiot::Cheminer(coordonnees pointDestination)
 	 * Vitesse : 0.42 m.
 	 * Moteur d'une roue : 14,0 Watts. */
 
-	/* Calcul de la puissance en Joule. */
-	int puissanceNecessaire = ((14 * 2) + 12.5) * (distance / 0.42); //J
+	 /* Calcul de la puissance en Joule. */
+	int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
 
 	/* Incrémentation de la batterie pour connaitre la consommation finale. */
 	m_batterieRobiot.addBatterie(puissanceNecessaire);
@@ -174,14 +174,24 @@ void CRobiot::Cheminer(coordonnees pointDestination)
 * METHODE : CRobiot::Disjkra(coordonnees pointEntree, coordonnees pointSortie)
 * PRESENTATION : Calcul de la distance avec l'algorithme de Disjkra.
 *
-* SORTIE : 
+* SORTIE :
 * 	int : distance la plus courte calculée par l'algotithme de Disjkra.
-* 
+*
 ***************************************************************/
 
 int CRobiot::Disjkra(coordonnees pointEntree, coordonnees pointSortie)
 {
+	//int distance = sqrt(pow((pointSortie.y - pointEntree.y), 2) - pow((pointSortie.x - pointEntree.x), 2));
 	int distance = sqrt(pow((pointSortie.y - pointEntree.y), 2) - pow((pointSortie.x - pointEntree.x), 2));
+	// Boucle sur x et sur y 
+	/*for (int i = 0; i < (pointSortie.x - pointEntree.x); i++){
+		for (int j = 0; j < (pointSortie.y - pointEntree.y); j++) {
+
+		}
+		if (/*m_commande.isObstacle(point(x,y))/) {
+			ne pas passer par cette case et arreter ce for?
+		}
+	}*/
 	return (distance);
 
 } /* Disjkra */

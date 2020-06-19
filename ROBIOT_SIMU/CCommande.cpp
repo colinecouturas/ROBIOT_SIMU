@@ -33,8 +33,8 @@ coordonnees CCommande::getCoordonnees(int iNumero)
 	if (iNumero < tabCoordonnees.size()) {
 		return (tabCoordonnees[iNumero]);
 	} else {
-		OutputDebugString("L'indice du tableau est trop grand.");
-		return (-1);
+		//OutputDebugString("L'indice du tableau est trop grand.");
+		//return 0;
 	}
 
 } /* getCoordonnees */
