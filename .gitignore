@@ -1,4 +1,4 @@
-
+*/packages/*
 *.db
 
 *.vcxproj
@@ -19,3 +19,5 @@ ROBIOT_SIMU/x64/Debug/*
 *.filters
 
 ROBIOT_SIMU/x64/Release/
+
+*.p7s
