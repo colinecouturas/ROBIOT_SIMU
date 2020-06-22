@@ -66,7 +66,7 @@ int CCommande::NombreArbre()
 * 
 ***************************************************************/
 
-int CCommande::LireTableau(string nomListe)
+int CCommande::LireTableau(char* nomListe)
 {
 	ifstream file;
 

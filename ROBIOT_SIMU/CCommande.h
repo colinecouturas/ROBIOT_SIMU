@@ -27,7 +27,7 @@ public:
 
 	coordonnees getCoordonnees(int iNumero);
 	int NombreArbre();
-	int LireTableau(string nomListe);
+	int LireTableau(char * nomListe);
 
 private:
 	vector<coordonnees> tabCoordonnees;

@@ -29,7 +29,7 @@ using namespace std;
 * 
 ***************************************************************/
 
-int CCapteur::LireCartographie(string nomCarto)
+int CCapteur::LireCartographie(char * nomCarto)
 {
 	ifstream file;
 	int x = 0;
