@@ -1,10 +1,3 @@
-#pragma once
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include "CCompas.h"
-using namespace std;
-
 /**************************************************************
 *
 * Reproduction et diffusion interdites.
@@ -19,6 +12,14 @@ using namespace std;
 * DATE : 16/06/20
 *
 ***************************************************************/
+
+#pragma once
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include "CCompas.h"
+
+using namespace std;
 
 class CCommande
 {

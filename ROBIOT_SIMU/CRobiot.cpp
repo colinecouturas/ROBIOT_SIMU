@@ -1,8 +1,3 @@
-#include "pch.h"
-#include "CRobiot.h"
-#include <math.h>
-
-
 /**************************************************************
 *
 * Reproduction et diffusion interdites.
@@ -17,6 +12,10 @@
 * DATE : 18/06/20
 *
 ***************************************************************/
+
+#include "pch.h"
+#include "CRobiot.h"
+#include <math.h>
 
 /**************************************************************
 *
@@ -224,34 +223,98 @@ void CRobiot::Mesurer()
 
 } /* Mesurer */
 
-
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotCapteur()
+* PRESENTATION : Fonction getteur du capteur du Robiot.
+*
+* SORTIE :
+* 	CCapteur : capteur du Robiot.
+*
+***************************************************************/
 
 CCapteur CRobiot::getRobiotCapteur()
 {
 	return m_capteurRobiot;
-}
+
+} /* getRobiotCapteur */
+
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotCompas()
+* PRESENTATION : Fonction getteur de la position du Robiot.
+*
+* SORTIE :
+* 	CCompas : position du Robiot.
+*
+***************************************************************/
 
 CCompas CRobiot::getRobiotCompas()
 {
 	return m_compasRobiot;
-}
+
+} /* getRobiotCompas */
+
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotBatterie()
+* PRESENTATION : Fonction getteur de la batterie du Robiot.
+*
+* SORTIE :
+* 	CBatterie : batterie du Robiot.
+*
+***************************************************************/
 
 CBatterie CRobiot::getRobiotBatterie()
 {
 	return m_batterieRobiot;
-}
+
+} /* getRobiotBatterie */
+
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotMesure()
+* PRESENTATION : Fonction getteur de l'attribue mesure du Robiot.
+*
+* SORTIE :
+* 	CMesure : attribut mesure du Robiot.
+*
+***************************************************************/
 
 CMesure CRobiot::getRobiotMesure()
 {
 	return m_mesureRobiot;
-}
+
+} /* getRobiotMesure */
+
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotMoteur()
+* PRESENTATION : Fonction getteur du moteur du Robiot.
+*
+* SORTIE :
+* 	CMoteur : moteur du Robiot.
+*
+***************************************************************/
 
 CMoteur CRobiot::getRobiotMoteur()
 {
 	return m_moteurRobiot;
-}
+
+} /* getRobiotMoteur */
+
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotCommande()
+* PRESENTATION : Fonction getteur de la commande du Robiot.
+*
+* SORTIE :
+* 	CCommande : commande du Robiot.
+*
+***************************************************************/
 
 CCommande CRobiot::getRobiotCommande()
 {
 	return m_commandeRobiot;
-}
+
+} /* getRobiotCommande */

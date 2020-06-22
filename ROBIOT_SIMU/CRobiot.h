@@ -1,10 +1,3 @@
-#pragma once
-#include "CCommande.h"
-#include "CCapteur.h"
-#include "CBatterie.h"
-#include "CMesure.h"
-#include "CMoteur.h"
-
 /**************************************************************
 *
 * Reproduction et diffusion interdites.
@@ -19,6 +12,13 @@
 * DATE : 16/06/20
 *
 ***************************************************************/
+
+#pragma once
+#include "CCommande.h"
+#include "CCapteur.h"
+#include "CBatterie.h"
+#include "CMesure.h"
+#include "CMoteur.h"
 
 class CRobiot
 {
