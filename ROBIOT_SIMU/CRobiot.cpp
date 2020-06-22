@@ -30,37 +30,37 @@
 * 
 ***************************************************************/
 
-/*int main()
+int main()
 {
-	/* Le robot ouvre la liste des coordonnées. *
-	/* Utilisation de l'algorithme de djiktra sur le tableau pour trouver le chemin le plus court. *
+	/* Le robot ouvre la liste des coordonnées. */
+	/* Utilisation de l'algorithme de djiktra sur le tableau pour trouver le chemin le plus court. */
 
 	int i = 0;
 
-	/* Définition d'un Robiot. *
+	/* Définition d'un Robiot. */
 	CRobiot petitRobiot = CRobiot();
 
-	/* Définition du point de départ, auquel on va revenir à la fin. *
+	/* Définition du point de départ, auquel on va revenir à la fin. */
 	coordonnees pointInitial = { 0, 0 };
 
-	for (i = 0; i < petitRobiot.NombreArbre(); i++) {
+	for (i = 0; i < petitRobiot.getRobiotCommande().NombreArbre(); i++) {
 		cout << "On se dirige vers l'arbre numero " << i+1 <<  endl;
 		petitRobiot.Cheminer(i);
 		cout << "On mesure l'arbre " << i+1  << endl;
 		petitRobiot.Mesurer();
 	}
 
-	/* On revient au point de depart. *
+	/* On revient au point de depart. */
 	petitRobiot.Cheminer(pointInitial);
 
 	cout << "C'est fini ! " << endl;
-	cout << "Le petit Robiot a utilise " << petitRobiot.BatterieUtilisee() << " J pour mesurer les arbres de ce terrain." << endl;
-	int tailleTerrain = petitRobiot.LargeurTerrain() * petitRobiot.LongueurTerrain();
+	cout << "Le petit Robiot a utilise " << petitRobiot.getRobiotBatterie().getBatterie() << " J pour mesurer les arbres de ce terrain." << endl;
+	int tailleTerrain = petitRobiot.getRobiotCapteur().getLargeurTerrain() * petitRobiot.getRobiotCapteur().getLongueurTerrain();
 	cout << "Le terrain mesurait " << tailleTerrain << " m carre." << endl;
 
 	return (0);
 
-}  main */
+} /* main */
 
 /**************************************************************
 *
@@ -224,66 +224,34 @@ void CRobiot::Mesurer()
 
 } /* Mesurer */
 
-/**************************************************************
-*
-* METHODE : CRobiot::NombreArbre()
-* PRESENTATION : Retourne le nombre d'arbre que le Robiot a à mesurer sur la cartographie.
-*
-* SORTIE : 
-* 	int : nombre d'arbres.
-* 
-***************************************************************/
 
-int CRobiot::NombreArbre()
+
+CCapteur CRobiot::getRobiotCapteur()
 {
-	return (m_commandeRobiot.NombreArbre());
+	return m_capteurRobiot;
+}
 
-} /* NombreArbre */
-
-/**************************************************************
-*
-* METHODE : CRobiot::BatterieUtilisee()
-* PRESENTATION : Retourne la batterie consommée par le Robiot pour mesurer l'ensemble des arbres.
-*
-* SORTIE : 
-* 	int : batterie en Joules.
-* 
-***************************************************************/
-
-int CRobiot::BatterieUtilisee()
+CCompas CRobiot::getRobiotCompas()
 {
-	return (m_batterieRobiot.getBatterie());
+	return m_compasRobiot;
+}
 
-} /* BatterieUtilisee */
-
-/**************************************************************
-*
-* METHODE : CRobiot::LargeurTerrain()
-* PRESENTATION : Retourne la largeur du terrain en mètre.
-*
-* SORTIE : 
-* 	int : largeur du terrain en mètre.
-* 
-***************************************************************/
-
-int CRobiot::LargeurTerrain()
+CBatterie CRobiot::getRobiotBatterie()
 {
-	return (m_capteurRobiot.getLargeurTerrain());
+	return m_batterieRobiot;
+}
 
-} /* LargeurTerrain */
-
-/**************************************************************
-*
-* METHODE : CRobiot::LongueurTerrain()
-* PRESENTATION : Retourne la longueur du terrain en mètre.
-*
-* SORTIE : 
-* 	int : longueur du terrain en mètre.
-* 
-***************************************************************/
-
-int CRobiot::LongueurTerrain()
+CMesure CRobiot::getRobiotMesure()
 {
-	return (m_capteurRobiot.getLongueurTerrain());
+	return m_mesureRobiot;
+}
 
-} /* LongueurTerrain */
+CMoteur CRobiot::getRobiotMoteur()
+{
+	return m_moteurRobiot;
+}
+
+CCommande CRobiot::getRobiotCommande()
+{
+	return m_commandeRobiot;
+}
