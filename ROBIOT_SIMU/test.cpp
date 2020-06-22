@@ -13,7 +13,13 @@ TEST(TestCaseName, TestName) {
 /*Tests de la fonction LireTableau*/
 TEST(LireGrandTableau, LireTableau) {
 	CCommande commande = CCommande();
-	int res = commande.LireTableau("");
+	int res = commande.LireTableau("LISTE DE CONTROLE-Test_grand.txt");
+	EXPECT_EQ(res, 0);
+}
+
+TEST(LireTableauVide, LireTableau) {
+	CCommande commande = CCommande();
+	int res = commande.LireTableau("LISTE DE CONTROLE-Test_vide.txt");
 	EXPECT_EQ(res, 0);
 }
 
@@ -23,22 +29,16 @@ TEST(LireTableauInexistant, LireTableau) {
 	EXPECT_EQ(res, 1);
 }
 
-TEST(LireTableauVide, LireTableau) {
-	CCommande commande = CCommande();
-	int res = commande.LireTableau("");
-	EXPECT_EQ(res, 0);
-}
-
 /*Tests de la fonction LireCartographie*/
 TEST(LireGrandTerrain, LireCartographie) {
 	CCapteur capteur = CCapteur();
-	int res = capteur.LireCartographie("");
+	int res = capteur.LireCartographie("CARTOGRPAHIE-Test_grand.txt");
 	EXPECT_EQ(res, 0);
 }
 
 TEST(LireTerrainVide, LireCartographie) {
 	CCapteur capteur = CCapteur();
-	int res = capteur.LireCartographie("");
+	int res = capteur.LireCartographie("CARTOGRPAHIE-Test_vide.txt");
 	EXPECT_EQ(res, 0);
 }
 

@@ -29,6 +29,7 @@ public:
 	int Disjkra(coordonnees pointEntree, coordonnees pointSortie);
 	void Mesurer();
 	void setPosition(coordonnees positionActuelle);
+	coordonnees getPosition();
 
 	int NombreArbre();
 	int BatterieUtilisee();

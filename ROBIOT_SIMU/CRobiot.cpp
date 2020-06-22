@@ -231,7 +231,7 @@ void CRobiot::setPosition(coordonnees positionActuelle)
 
 coordonnees CRobiot::getPosition()
 {
-	return m_compasRobiot.getCompas(positinActuelle);
+	return m_compasRobiot.getCompas();
 }
 
 /**************************************************************
