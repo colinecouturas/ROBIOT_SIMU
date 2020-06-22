@@ -31,10 +31,14 @@ public:
 	void setPosition(coordonnees positionActuelle);
 	coordonnees getPosition();
 
-	int NombreArbre();
-	int BatterieUtilisee();
-	int LargeurTerrain();
-	int LongueurTerrain();
+	
+	CCapteur getRobiotCapteur();
+	CCompas getRobiotCompas();
+	CBatterie getRobiotBatterie();
+	CMesure getRobiotMesure();
+	CMoteur getRobiotMoteur();
+	CCommande getRobiotCommande();
+
 
 private:
 	CCapteur m_capteurRobiot;
