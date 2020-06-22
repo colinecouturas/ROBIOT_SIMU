@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CCapteur.h"
 #include <iostream>
 
@@ -16,11 +17,6 @@
 *
 ***************************************************************/
 
-/* ouvre le fichier de cartographie*/
-
-/* on vient me demander si j'ai qqch a cet endroit*/
-
-/* faire un tableau avec les coordonnées des obstacles.*/
 using namespace std;
 
 /**************************************************************
@@ -33,18 +29,18 @@ using namespace std;
 * 
 ***************************************************************/
 
-int CCapteur::LireCartographie()
+int CCapteur::LireCartographie(char * nomCarto)
 {
 	ifstream file;
 	int x = 0;
 	int y = 0;
 	bool isSet = false;
 	char c;
+
 	/* Ouverture du fichier de cartographie. */
-	file.open("CARTOGRAPHIE.txt");
+	file.open(nomCarto);
 	if (file) {
 		do {
-			
 			file.get(c);
 			if (c == '\n') {
 				y += 1;
@@ -70,23 +66,48 @@ int CCapteur::LireCartographie()
 			else x += 1;
 			
 		} while (!file.eof());
-		m_ilongueurTerrain = y+1; //car seulement y reour a la ligne
+
+		/* La longueur du terrain prend y+1 car on n'a pas de '\n' sur la dernière ligne. */
+		m_ilongueurTerrain = y+1;
 		 
 	}
 	else {
-		cout << "Probleme ouverture du fichier." << endl;
+		cout << "Probleme d'ouverture du fichier." << endl;
 		return (1);
 	}
 	file.close();
 	return (0);
+
 } /* LireCartographie */
+
+/**************************************************************
+*
+* METHODE : CCapteur::getLongueurTerrain()
+* PRESENTATION : Récupération de la longueur du terrain.
+*
+* SORTIE :
+* 	int : longueur du terrain.
+* 
+***************************************************************/
 
 int CCapteur::getLongueurTerrain()
 {
-	return m_ilongueurTerrain;
-}
+	return (m_ilongueurTerrain);
+
+} /* getLongueurTerrain */
+
+/**************************************************************
+*
+* METHODE : CCapteur::getLargeurTerrain()
+* PRESENTATION : Récupération de la largeur du terrain.
+*
+* SORTIE :
+* 	int : largeur du terrain.
+* 
+***************************************************************/
 
 int CCapteur::getLargeurTerrain()
 {
-	return m_ilargeurTerrain;
-}
+	return (m_ilargeurTerrain);
+
+} /* getLargeurTerrain */

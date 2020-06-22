@@ -24,7 +24,7 @@ class CCompas
 {
 public: 
 	CCompas() {
-		m_cPoint = coordonnees{ 0,0 };
+		m_cPoint = coordonnees{0,0};
 	}
 
 	void setCompas(coordonnees point) {

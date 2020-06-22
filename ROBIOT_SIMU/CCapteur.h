@@ -29,12 +29,11 @@ public:
 		m_ilargeurTerrain = 0;
 	}
 
-	int LireCartographie();
+	int LireCartographie(char *  nomCarto);
 	int getLongueurTerrain();
 	int getLargeurTerrain();
 
 private:
-
 	std::vector<coordonnees> tabCoordonneesObstacles;
 	std::vector<coordonnees> tabCoordonneesObjets;
 	std::vector<coordonnees> tabCoordonneesArbres;
@@ -42,7 +41,7 @@ private:
 	int m_ilongueurTerrain ;
 
 	enum {
-		bordure =1,
+		bordure = 1,
 		obstacle,
 		arbre
 	};

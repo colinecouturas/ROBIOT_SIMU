@@ -22,9 +22,17 @@ public:
 		m_iBatterie = 0;
 	}
 
-	int getBatterie() { return m_iBatterie; }
-	void setBatterie(int iBatterie) { m_iBatterie = iBatterie; }
-	void addBatterie(int iBatterie) { m_iBatterie += iBatterie; }
+	int getBatterie() { 
+		return m_iBatterie;
+	}
+
+	void setBatterie(int iBatterie) {
+		m_iBatterie = iBatterie;
+	}
+
+	void addBatterie(int iBatterie) {
+		m_iBatterie += iBatterie;
+	}
 
 private : 
 	int m_iBatterie; 
