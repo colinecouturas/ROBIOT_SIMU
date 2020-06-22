@@ -5,11 +5,6 @@
 #include "CCompas.h"
 
 
-TEST(TestCaseName, TestName) {
-	EXPECT_EQ(1, 1);
-	EXPECT_TRUE(true);
-}
-
 /*Tests de la fonction LireTableau*/
 TEST(LireGrandTableau, LireTableau) {
 	CCommande commande = CCommande();
@@ -48,15 +43,41 @@ TEST(LireTerrainInexistant, LireCartographie) {
 	EXPECT_EQ(res, 1);
 }
 
-/*Test de fonction Cheminer */
 
-TEST(MesurerDistanceNulle, Cheminer) {
+/*Test de fonction Cheminer */
+TEST(CheminerDistanceNulle, Cheminer) {
 	CRobiot robiot = CRobiot();
 	coordonnees point = { 1,5 };
 	robiot.setPosition(point);
 	robiot.Cheminer( point);
-	coordonnees pointDepart =  robiot.getPosition();
-	EXPECT_EQ(pointDepart.x, point.x);
-	EXPECT_EQ(pointDepart.y, point.y);
-	//EXPECT_EQ(res, 1);
+	coordonnees positionFinale =  robiot.getPosition();
+	EXPECT_EQ(positionFinale.x, point.x);
+	EXPECT_EQ(positionFinale.y, point.y);
+}
+
+TEST(CheminerDistanceNonNulle, Cheminer) {
+	CRobiot robiot = CRobiot();
+	coordonnees point = { 1,5 };
+	robiot.Cheminer(point);
+	coordonnees positionFinale =  robiot.getPosition();
+	EXPECT_EQ(positionFinale.x, point.x);
+	EXPECT_EQ(positionFinale.y, point.y);
+}
+
+TEST(CheminerDistanceGrande, Cheminer) {
+	CRobiot robiot = CRobiot();
+	coordonnees point = { 100,50 };
+	robiot.Cheminer(point);
+	coordonnees positionFinale =  robiot.getPosition();
+	EXPECT_EQ(positionFinale.x, point.x);
+	EXPECT_EQ(positionFinale.y, point.y);
+}
+
+TEST(Mesurer, Mesurer) {
+	CRobiot robiot = CRobiot();
+	coordonnees point = { 100,50 };
+	robiot.Cheminer(point);
+	coordonnees positionFinale = robiot.getPosition();
+	EXPECT_EQ(positionFinale.x, point.x);
+	EXPECT_EQ(positionFinale.y, point.y);
 }
