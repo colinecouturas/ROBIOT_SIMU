@@ -29,18 +29,18 @@
 * 	int : retourne 0 en cas de succ�s.
 * 
 ***************************************************************/
-
+/*
 int main()
 {
-	/* Le robot ouvre la liste des coordonn�es. */
-	/* Utilisation de l'algorithme de djiktra sur le tableau pour trouver le chemin le plus court. */
+	/* Le robot ouvre la liste des coordonn�es. *
+	/* Utilisation de l'algorithme de djiktra sur le tableau pour trouver le chemin le plus court. *
 
 	int i = 0;
 
-	/* D�finition d'un Robiot. */
+	/* D�finition d'un Robiot. *
 	CRobiot petitRobiot = CRobiot();
 
-	/* D�finition du point de d�part, auquel on va revenir � la fin. */
+	/* D�finition du point de d�part, auquel on va revenir � la fin. *
 	coordonnees pointInitial = { 0, 0 };
 
 	for (i = 0; i < petitRobiot.getRobiotCommande().NombreArbre(); i++) {
@@ -50,7 +50,7 @@ int main()
 		petitRobiot.Mesurer();
 	}
 
-	/* On revient au point de depart. */
+	/* On revient au point de depart. *
 	petitRobiot.Cheminer(pointInitial);
 
 	cout << "C'est fini ! " << endl;
