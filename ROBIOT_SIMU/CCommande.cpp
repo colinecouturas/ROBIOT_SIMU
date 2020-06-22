@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CCommande.h"
 
 /**************************************************************
@@ -65,12 +66,12 @@ int CCommande::NombreArbre()
 * 
 ***************************************************************/
 
-int CCommande::LireTableau()
+int CCommande::LireTableau(string nomListe)
 {
 	ifstream file;
 
 	/* Ouverture du fichier listant les arbres à mesurer. */
-	file.open("LISTE DE CONTROLE.txt");
+	file.open(nomListe);
 	if (file) {
 		do{
 			coordonnees point;

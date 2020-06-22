@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CCapteur.h"
 #include <iostream>
 
@@ -28,7 +29,7 @@ using namespace std;
 * 
 ***************************************************************/
 
-int CCapteur::LireCartographie()
+int CCapteur::LireCartographie(string nomCarto)
 {
 	ifstream file;
 	int x = 0;
@@ -37,7 +38,7 @@ int CCapteur::LireCartographie()
 	char c;
 
 	/* Ouverture du fichier de cartographie. */
-	file.open("CARTOGRAPHIE.txt");
+	file.open(nomCarto);
 	if (file) {
 		do {
 			file.get(c);

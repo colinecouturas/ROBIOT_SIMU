@@ -29,7 +29,7 @@ public:
 		m_ilargeurTerrain = 0;
 	}
 
-	int LireCartographie();
+	int LireCartographie(string nomCarto);
 	int getLongueurTerrain();
 	int getLargeurTerrain();
 

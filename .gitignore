@@ -1,4 +1,4 @@
-
+*/packages/*
 *.db
 
 *.vcxproj
@@ -19,3 +19,9 @@ ROBIOT_SIMU/x64/Debug/*
 *.filters
 
 ROBIOT_SIMU/x64/Release/
+
+Ancien projet/Debug/ROBIOT_SIMU.tlog/
+
+*.p7s
+
+ROBIOT_SIMU/packages/Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.3/build/native/include/gtest/internal/
