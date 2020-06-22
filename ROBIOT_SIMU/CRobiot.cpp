@@ -224,6 +224,11 @@ void CRobiot::Mesurer()
 
 } /* Mesurer */
 
+void CRobiot::setPosition(coordonnees positionActuelle)
+{
+	m_compasRobiot.setCompas(positionActuelle);
+}
+
 
 
 CCapteur CRobiot::getRobiotCapteur()
