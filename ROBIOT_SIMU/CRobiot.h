@@ -24,8 +24,8 @@ class CRobiot
 {
 public:
 	CRobiot();
-	void Cheminer(int indexArbreSuivant);
-	void Cheminer(coordonnees pointDestination);
+	int Cheminer(int indexArbreSuivant);
+	int Cheminer(coordonnees pointDestination);
 	int Disjkra(coordonnees pointEntree, coordonnees pointSortie);
 	void Mesurer();
 

@@ -102,38 +102,46 @@ CRobiot::CRobiot()
 *
 ***************************************************************/
 
-void CRobiot::Cheminer(int indexArbreSuivant)
+int CRobiot::Cheminer(int indexArbreSuivant)
 {
 	coordonnees pointCourant = m_compasRobiot.getCompas();
+	coordonnees pointDestination = m_commandeRobiot.getCoordonnees(indexArbreSuivant);
 
-	/* Calclul de la disance (Dijkstra). */
-	int distance = Disjkra(m_compasRobiot.getCompas(), m_commandeRobiot.getCoordonnees(indexArbreSuivant));
+	if (pointDestination.x > m_capteurRobiot.getLargeurTerrain() || pointDestination.y > m_capteurRobiot.getLongueurTerrain()) {
+		cout << "Les coordonnées de  l'arbre sont hors-terrain" << endl;
+		return 1;
+	}
+	else {
 
-	/* INFO CLIENT :
-	 * 1 sur carte = 10 m en réel. */
-	distance = distance * 10;
+		/* Calclul de la disance (Dijkstra). */
+		int distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
 
-	/* Allumage du moteur. */
-	m_moteurRobiot.setMoteur(true);
+		/* INFO CLIENT :
+		 * 1 sur carte = 10 m en réel. */
+		distance = distance * 10;
 
-	/* Consommation de la batterie :
-	 * Carte mère ARM : 12.5 Watts.
-	 * Vitesse : 0.42 m.
-	 * Moteur d'une roue : 14,0 Watts. */
+		/* Allumage du moteur. */
+		m_moteurRobiot.setMoteur(true);
 
-	 /* Calcul de la puissance en Joule. */
-	int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
+		/* Consommation de la batterie :
+		 * Carte mère ARM : 12.5 Watts.
+		 * Vitesse : 0.42 m.
+		 * Moteur d'une roue : 14,0 Watts. */
 
-	/* Incrémentation de la batterie pour connaitre la consommation finale. */
-	m_batterieRobiot.addBatterie(puissanceNecessaire);
+		 /* Calcul de la puissance en Joule. */
+		int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
+
+		/* Incrémentation de la batterie pour connaitre la consommation finale. */
+		m_batterieRobiot.addBatterie(puissanceNecessaire);
 
 
-	/* Mise à jour des coordonnées du point courant une fois arrivé. */
-	m_compasRobiot.setCompas(m_commandeRobiot.getCoordonnees(indexArbreSuivant));
+		/* Mise à jour des coordonnées du point courant une fois arrivé. */
+		m_compasRobiot.setCompas(m_commandeRobiot.getCoordonnees(indexArbreSuivant));
 
-	/* Extinction du moteur. */
-	m_moteurRobiot.setMoteur(false);
-
+		/* Extinction du moteur. */
+		m_moteurRobiot.setMoteur(false);
+		return 0;
+	}
 } /* Cheminer */
 
 /**************************************************************
@@ -150,36 +158,44 @@ void CRobiot::Cheminer(int indexArbreSuivant)
 *
 ***************************************************************/
 
-void CRobiot::Cheminer(coordonnees pointDestination)
+int CRobiot::Cheminer(coordonnees pointDestination)
 {
-	coordonnees pointCourant = m_compasRobiot.getCompas();
+	if (pointDestination.x > m_capteurRobiot.getLargeurTerrain() || pointDestination.y > m_capteurRobiot.getLongueurTerrain()) {
+		cout << "Les coordonnées de  l'arbre sont hors-terrain" << endl;
+		return 1;
+	}
+	else {
+		coordonnees pointCourant = m_compasRobiot.getCompas();
 
-	/* Calclul de la disance (Dijkstra). */
-	int distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
+		/* Calclul de la disance (Dijkstra). */
+		int distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
 
-	/* INFO CLIENT :
-	 * 1 sur carte = 10 m en réel. */
-	distance = distance * 10;
+		/* INFO CLIENT :
+		 * 1 sur carte = 10 m en réel. */
+		distance = distance * 10;
 
-	/* Allumage du moteur. */
-	m_moteurRobiot.setMoteur(true);
+		/* Allumage du moteur. */
+		m_moteurRobiot.setMoteur(true);
 
-	/* Consommation de la batterie :
-	 * Carte mère ARM : 12.5 Watts.
-	 * Vitesse : 0.42 m.
-	 * Moteur d'une roue : 14,0 Watts. */
+		/* Consommation de la batterie :
+		 * Carte mère ARM : 12.5 Watts.
+		 * Vitesse : 0.42 m.
+		 * Moteur d'une roue : 14,0 Watts. */
 
-	 /* Calcul de la puissance en Joule. */
-	int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
+		 /* Calcul de la puissance en Joule. */
+		int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
 
-	/* Incrémentation de la batterie pour connaitre la consommation finale. */
-	m_batterieRobiot.addBatterie(puissanceNecessaire);
+		/* Incrémentation de la batterie pour connaitre la consommation finale. */
+		m_batterieRobiot.addBatterie(puissanceNecessaire);
 
-	/* Mise à jour des coordonnées du point courant une fois arrivé. */
-	m_compasRobiot.setCompas(pointDestination);
+		/* Mise à jour des coordonnées du point courant une fois arrivé. */
+		m_compasRobiot.setCompas(pointDestination);
 
-	/* Extinction du moteur. */
-	m_moteurRobiot.setMoteur(false);
+		/* Extinction du moteur. */
+		m_moteurRobiot.setMoteur(false);
+		return 0;
+	}
+	
 
 } /* Cheminer */
 
