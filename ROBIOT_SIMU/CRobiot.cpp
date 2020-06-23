@@ -15,7 +15,7 @@
 
 #include "pch.h"
 #include "CRobiot.h"
-#include <math.h>
+#include <cmath>
 
 /**************************************************************
 *
@@ -44,15 +44,18 @@ int main()
 
 	/* Définition du point de départ, auquel on va revenir à la fin. */
 	coordonnees pointInitial = { 0, 0 };
+	cout << "Le petit Robiot doit prendre des mesures sur un terrain de taille " << petitRobiot.getRobiotCapteur().getLargeurTerrain() << "m par " << petitRobiot.getRobiotCapteur().getLongueurTerrain() << "m."<< endl;
+	cout << "Initialement le petit Robiot est positionne aux coordonnees {0,0}." << endl;
 
 	for (i = 0; i < petitRobiot.getRobiotCommande().NombreArbre(); i++) {
-		cout << "On se dirige vers l'arbre numero " << i+1 <<  endl;
+		cout << "Il se dirige vers l'arbre numero " << i+1 << ". ";
 		petitRobiot.Cheminer(i);
-		cout << "On mesure l'arbre " << i+1  << endl;
+		cout << "Il mesure l'arbre " << i+1 <<". L'operation dure 5 mins." << endl;
 		petitRobiot.Mesurer();
 	}
 
 	/* On revient au point de depart. */
+	cout << "Le Robiot retourne a sa position initiale. ";
 	petitRobiot.Cheminer(pointInitial);
 
 	cout << "C'est fini ! " << endl;
@@ -108,18 +111,18 @@ int CRobiot::Cheminer(int indexArbreSuivant)
 	coordonnees pointDestination = m_commandeRobiot.getCoordonnees(indexArbreSuivant);
 
 	if (pointDestination.x > m_capteurRobiot.getLargeurTerrain() || pointDestination.y > m_capteurRobiot.getLongueurTerrain()) {
-		cout << "Les coordonnées de  l'arbre sont hors-terrain" << endl;
+		cout << "Les coordonnées de  l'arbre sont hors-terrain." << endl;
 		return 1;
 	}
 	else {
-
+		
 		/* Calclul de la disance (Dijkstra). */
-		int distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
+		float distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
 
 		/* INFO CLIENT :
 		 * 1 sur carte = 10 m en réel. */
 		distance = distance * 10;
-
+	
 		/* Allumage du moteur. */
 		m_moteurRobiot.setMoteur(true);
 
@@ -129,7 +132,7 @@ int CRobiot::Cheminer(int indexArbreSuivant)
 		 * Moteur d'une roue : 14,0 Watts. */
 
 		 /* Calcul de la puissance en Joule. */
-		int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
+		float puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
 
 		/* Incrémentation de la batterie pour connaitre la consommation finale. */
 		m_batterieRobiot.addBatterie(puissanceNecessaire);
@@ -140,6 +143,8 @@ int CRobiot::Cheminer(int indexArbreSuivant)
 
 		/* Extinction du moteur. */
 		m_moteurRobiot.setMoteur(false);
+
+		cout << "La distance parcourue est de " << distance << "m." << endl;
 		return 0;
 	}
 } /* Cheminer */
@@ -168,7 +173,7 @@ int CRobiot::Cheminer(coordonnees pointDestination)
 		coordonnees pointCourant = m_compasRobiot.getCompas();
 
 		/* Calclul de la disance (Dijkstra). */
-		int distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
+		float distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
 
 		/* INFO CLIENT :
 		 * 1 sur carte = 10 m en réel. */
@@ -183,7 +188,7 @@ int CRobiot::Cheminer(coordonnees pointDestination)
 		 * Moteur d'une roue : 14,0 Watts. */
 
 		 /* Calcul de la puissance en Joule. */
-		int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
+		float puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
 
 		/* Incrémentation de la batterie pour connaitre la consommation finale. */
 		m_batterieRobiot.addBatterie(puissanceNecessaire);
@@ -193,6 +198,8 @@ int CRobiot::Cheminer(coordonnees pointDestination)
 
 		/* Extinction du moteur. */
 		m_moteurRobiot.setMoteur(false);
+
+		cout << "La distance parcourue est de " << distance << "m." << endl;
 		return 0;
 	}
 	
@@ -209,19 +216,10 @@ int CRobiot::Cheminer(coordonnees pointDestination)
 *
 ***************************************************************/
 
-int CRobiot::Disjkra(coordonnees pointEntree, coordonnees pointSortie)
-{
-	//int distance = sqrt(pow((pointSortie.y - pointEntree.y), 2) - pow((pointSortie.x - pointEntree.x), 2));
-	int distance = sqrt(pow((pointSortie.y - pointEntree.y), 2) - pow((pointSortie.x - pointEntree.x), 2));
-	// Boucle sur x et sur y 
-	/*for (int i = 0; i < (pointSortie.x - pointEntree.x); i++){
-		for (int j = 0; j < (pointSortie.y - pointEntree.y); j++) {
-
-		}
-		if (/*m_commande.isObstacle(point(x,y))/) {
-			ne pas passer par cette case et arreter ce for?
-		}
-	}*/
+float CRobiot::Disjkra(coordonnees pointEntree, coordonnees pointSortie)
+{	
+	int calcul = abs((pointSortie.y - pointEntree.y) * (pointSortie.y - pointEntree.y) - (pointSortie.x - pointEntree.x) * (pointSortie.x - pointEntree.x));
+	float distance = std::sqrt(calcul);
 	return (distance);
 
 } /* Disjkra */
@@ -245,7 +243,7 @@ void CRobiot::Mesurer()
 	 * Durée de mesure : 5 mins. */
 
 	/* Calcul de la puissance en Joule. */
-	int puissanceNecessaire = (30 + 12.5) * 5 * 60;
+	float puissanceNecessaire = (30 + 12.5) * 5 * 60;
 
 	/* Incrémentation de la batterie pour connaitre la consommation finale. */
 	m_batterieRobiot.addBatterie(puissanceNecessaire);
