@@ -20,7 +20,7 @@
 *
 * METHODE : CCommande::getCoordonnees(int iNumero)
 * PRESENTATION : Récupération d'un couple de coordonnées dans 
-* *              le tableau tabCoordonees.
+*                le tableau tabCoordonees.
 *
 * ENTREE :
 *	int iNumero : indice du tableau correspondant au couple de 
@@ -63,7 +63,7 @@ int CCommande::NombreArbre()
 *
 * METHODE : CCommande::lireTableau()
 * PRESENTATION : Remplissage du tableau tabCoordonnees en 
-*                fonction des coordonnées du fichier LISTE DE
+*                fonction des coordonnées du fichier LISTE DE 
 *                CONTROLE.
 *
 * SORTIE :
@@ -78,18 +78,18 @@ int CCommande::LireTableau(char* nomListe)
 	/* Ouverture du fichier listant les arbres à mesurer. */
 	file.open(nomListe);
 	if (file) {
-		do{
+		while(!file.eof()){
 			coordonnees point;
 			file >> point.x;
 			file >> point.y;
 			tabCoordonnees.push_back(point);
-		}while(!file.eof());
+		}
+		file.close();
 	}
 	else {
 		cout << "Probleme ouverture du fichier." << endl;
 		return (1);
 	}
-	file.close();
 	return (0);
 
 } /* LireTableau */

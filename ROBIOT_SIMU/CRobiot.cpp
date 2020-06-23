@@ -15,18 +15,18 @@
 
 #include "pch.h"
 #include "CRobiot.h"
-#include <math.h>
+#include <cmath>
 
 /**************************************************************
 *
 * METHODE : main()
 * PRESENTATION : Fonction principale.
-*                Création d'un Robiot qui parcours une carte 
+*                Crï¿½ation d'un Robiot qui parcours une carte 
 *                sur laquelle se trouvent des arbres et des 
 *                obstacles. Le Robiot doit mesurer certains des 
-*                arbres, et informer quant à la batterie qu'il 
-*                a consommé pour se faire.
-* 
+*                arbres, et informer quant ï¿½ la batterie qu'il 
+*                a consommï¿½ pour se faire.
+*
 * SORTIE :
 * 	int : retourne 0 en cas de succï¿½s.
 * 
@@ -44,15 +44,18 @@ int main()
 
 	/* Dï¿½finition du point de dï¿½part, auquel on va revenir ï¿½ la fin. *
 	coordonnees pointInitial = { 0, 0 };
+	cout << "Le petit Robiot doit prendre des mesures sur un terrain de taille " << petitRobiot.getRobiotCapteur().getLargeurTerrain() << "m par " << petitRobiot.getRobiotCapteur().getLongueurTerrain() << "m."<< endl;
+	cout << "Initialement le petit Robiot est positionne aux coordonnees {0,0}." << endl;
 
 	for (i = 0; i < petitRobiot.getRobiotCommande().NombreArbre(); i++) {
-		cout << "On se dirige vers l'arbre numero " << i+1 <<  endl;
+		cout << "Il se dirige vers l'arbre numero " << i+1 << ". ";
 		petitRobiot.Cheminer(i);
-		cout << "On mesure l'arbre " << i+1  << endl;
+		cout << "Il mesure l'arbre " << i+1 <<". L'operation dure 5 mins." << endl;
 		petitRobiot.Mesurer();
 	}
 
-	/* On revient au point de depart. *
+	/* On revient au point de depart. */
+	cout << "Le Robiot retourne a sa position initiale. ";
 	petitRobiot.Cheminer(pointInitial);
 
 	cout << "C'est fini ! " << endl;
@@ -69,10 +72,10 @@ int main()
 * METHODE : CRobiot::CRobiot()
 * PRESENTATION : Constructeur de la classe CRobiot.
 *                Dans ce constructeur on associe tous les 
-*                paramètres connus avec un Robiot. En
-*                particulier, on va lire les fichiers d'entrée.
+*                paramï¿½tres connus avec un Robiot. En
+*                particulier, on va lire les fichiers d'entrï¿½e.
 *                Le Robiot connait donc la position des obstacles, 
-*                et des arbres à aller mesurer.
+*                et des arbres ï¿½ aller mesurer.
 *
 ***************************************************************/
 
@@ -91,14 +94,14 @@ CRobiot::CRobiot()
 /**************************************************************
 *
 * METHODE : CRobiot::Cheminer(int indexArbreSuivant)
-* PRESENTATION : Déplacement du Robiot.  Cheminement entre sa 
+* PRESENTATION : Dï¿½placement du Robiot.  Cheminement entre sa 
 *                position courante et la position du prochain 
-*                arbre, et incrémentation de la batterie en
+*                arbre, et incrï¿½mentation de la batterie en
 *                fonction de la consommation de l'outil de 
 *                mesure.
 *
 * ENTREE :
-* 	int indexArbreSuivant : indice des coordonnées du prochain arbre.
+* 	int indexArbreSuivant : indice des coordonnï¿½es du prochain arbre.
 *
 ***************************************************************/
 
@@ -108,18 +111,18 @@ int CRobiot::Cheminer(int indexArbreSuivant)
 	coordonnees pointDestination = m_commandeRobiot.getCoordonnees(indexArbreSuivant);
 
 	if (pointDestination.x > m_capteurRobiot.getLargeurTerrain() || pointDestination.y > m_capteurRobiot.getLongueurTerrain()) {
-		cout << "Les coordonnï¿½es de  l'arbre sont hors-terrain" << endl;
+		cout << "Les coordonnï¿½es de  l'arbre sont hors-terrain." << endl;
 		return 1;
 	}
 	else {
-
+		
 		/* Calclul de la disance (Dijkstra). */
-		int distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
+		float distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
 
 		/* INFO CLIENT :
 		 * 1 sur carte = 10 m en rï¿½el. */
 		distance = distance * 10;
-
+	
 		/* Allumage du moteur. */
 		m_moteurRobiot.setMoteur(true);
 
@@ -129,7 +132,7 @@ int CRobiot::Cheminer(int indexArbreSuivant)
 		 * Moteur d'une roue : 14,0 Watts. */
 
 		 /* Calcul de la puissance en Joule. */
-		int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
+		float puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
 
 		/* Incrï¿½mentation de la batterie pour connaitre la consommation finale. */
 		m_batterieRobiot.addBatterie(puissanceNecessaire);
@@ -140,6 +143,8 @@ int CRobiot::Cheminer(int indexArbreSuivant)
 
 		/* Extinction du moteur. */
 		m_moteurRobiot.setMoteur(false);
+
+		cout << "La distance parcourue est de " << distance << "m." << endl;
 		return 0;
 	}
 } /* Cheminer */
@@ -147,9 +152,9 @@ int CRobiot::Cheminer(int indexArbreSuivant)
 /**************************************************************
 *
 * METHODE : CRobiot::Cheminer(coordonnees pointDestination)
-* PRESENTATION : Déplacement du Robiot.  Cheminement entre sa 
+* PRESENTATION : Dï¿½placement du Robiot. Cheminement entre sa 
 *                position courante et la position du prochain 
-*                arbre, et incrémentation de la batterie en
+*                arbre, et incrï¿½mentation de la batterie en
 *                fonction de la consommation de l'outil de 
 *                mesure.
 *
@@ -168,7 +173,7 @@ int CRobiot::Cheminer(coordonnees pointDestination)
 		coordonnees pointCourant = m_compasRobiot.getCompas();
 
 		/* Calclul de la disance (Dijkstra). */
-		int distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
+		float distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
 
 		/* INFO CLIENT :
 		 * 1 sur carte = 10 m en rï¿½el. */
@@ -183,7 +188,7 @@ int CRobiot::Cheminer(coordonnees pointDestination)
 		 * Moteur d'une roue : 14,0 Watts. */
 
 		 /* Calcul de la puissance en Joule. */
-		int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
+		float puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
 
 		/* Incrï¿½mentation de la batterie pour connaitre la consommation finale. */
 		m_batterieRobiot.addBatterie(puissanceNecessaire);
@@ -193,6 +198,8 @@ int CRobiot::Cheminer(coordonnees pointDestination)
 
 		/* Extinction du moteur. */
 		m_moteurRobiot.setMoteur(false);
+
+		cout << "La distance parcourue est de " << distance << "m." << endl;
 		return 0;
 	}
 	
@@ -205,23 +212,14 @@ int CRobiot::Cheminer(coordonnees pointDestination)
 * PRESENTATION : Calcul de la distance avec l'algorithme de Disjkra.
 *
 * SORTIE :
-* 	int : distance la plus courte calculée par l'algotithme de Disjkra.
+* 	int : distance la plus courte calculï¿½e par l'algotithme de Disjkra.
 *
 ***************************************************************/
 
-int CRobiot::Disjkra(coordonnees pointEntree, coordonnees pointSortie)
-{
-	//int distance = sqrt(pow((pointSortie.y - pointEntree.y), 2) - pow((pointSortie.x - pointEntree.x), 2));
-	int distance = sqrt(pow((pointSortie.y - pointEntree.y), 2) - pow((pointSortie.x - pointEntree.x), 2));
-	// Boucle sur x et sur y 
-	/*for (int i = 0; i < (pointSortie.x - pointEntree.x); i++){
-		for (int j = 0; j < (pointSortie.y - pointEntree.y); j++) {
-
-		}
-		if (/*m_commande.isObstacle(point(x,y))/) {
-			ne pas passer par cette case et arreter ce for?
-		}
-	}*/
+float CRobiot::Disjkra(coordonnees pointEntree, coordonnees pointSortie)
+{	
+	int calcul = abs((pointSortie.y - pointEntree.y) * (pointSortie.y - pointEntree.y) - (pointSortie.x - pointEntree.x) * (pointSortie.x - pointEntree.x));
+	float distance = std::sqrt(calcul);
 	return (distance);
 
 } /* Disjkra */
@@ -229,7 +227,7 @@ int CRobiot::Disjkra(coordonnees pointEntree, coordonnees pointSortie)
 /**************************************************************
 *
 * METHODE : CRobiot::Mesurer()
-* PRESENTATION : Mesure de l'arbre courant et incrémentation de 
+* PRESENTATION : Mesure de l'arbre courant et incrï¿½mentation de 
 *                la batterie en fonction de la consommation de 
 *                l'outil de mesure.
 *
@@ -245,7 +243,7 @@ void CRobiot::Mesurer()
 	 * Durï¿½e de mesure : 5 mins. */
 
 	/* Calcul de la puissance en Joule. */
-	int puissanceNecessaire = (30 + 12.5) * 5 * 60;
+	float puissanceNecessaire = (30 + 12.5) * 5 * 60;
 
 	/* Incrï¿½mentation de la batterie pour connaitre la consommation finale. */
 	m_batterieRobiot.addBatterie(puissanceNecessaire);
@@ -262,9 +260,9 @@ void CRobiot::setPosition(coordonnees point) {
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotCapteur()
-* PRESENTATION : Fonction d'accès de l'attribut capteur du Robiot.
-*                Permet d'accéder au tableau des obstacles et des arbres 
-*                correspondant au fichier CARTOGRAPHIE, et à la largeur 
+* PRESENTATION : Fonction d'accï¿½s de l'attribut capteur du Robiot.
+*                Permet d'accï¿½der au tableau des obstacles et des arbres 
+*                correspondant au fichier CARTOGRAPHIE, et ï¿½ la largeur 
 *                et longueur du terrain.
 *
 * SORTIE :
@@ -281,7 +279,7 @@ CCapteur CRobiot::getRobiotCapteur()
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotCompas()
-* PRESENTATION : Fonction d'accès de l'attribut compas du Robiot.
+* PRESENTATION : Fonction d'accï¿½s de l'attribut compas du Robiot.
 *                Permet de connaitre la position du Robiot.
 *
 * SORTIE :
@@ -298,7 +296,7 @@ CCompas CRobiot::getRobiotCompas()
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotBatterie()
-* PRESENTATION : Fonction d'accès de l'attribut batterie du Robiot.
+* PRESENTATION : Fonction d'accï¿½s de l'attribut batterie du Robiot.
 *                Permet de connaitre le niveau de batterue du 
 *                Robiot (en Joules).
 *
@@ -316,8 +314,8 @@ CBatterie CRobiot::getRobiotBatterie()
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotMesure()
-* PRESENTATION : Fonction d'accès de l'attribut mesure du Robiot.
-*                Permet de connaitre l'état du système de mesure du Robiot.
+* PRESENTATION : Fonction d'accï¿½s de l'attribut mesure du Robiot.
+*                Permet de connaitre l'ï¿½tat du systï¿½me de mesure du Robiot.
 *
 * SORTIE :
 * 	CMesure : attribut mesure du Robiot.
@@ -333,8 +331,8 @@ CMesure CRobiot::getRobiotMesure()
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotMoteur()
-* PRESENTATION : Fonction d'accès de l'attribut moteur du Robiot.
-*                Permet de connaitre l'état du moteur du Robiot
+* PRESENTATION : Fonction d'accï¿½s de l'attribut moteur du Robiot.
+*                Permet de connaitre l'ï¿½tat du moteur du Robiot
 *
 * SORTIE :
 * 	CMoteur : moteur du Robiot.
@@ -350,10 +348,10 @@ CMoteur CRobiot::getRobiotMoteur()
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotCommande()
-* PRESENTATION : Fonction d'accès de l'attribut commande du Robiot.
-*                Permet d'accéder au tableau des coordonnées du 
+* PRESENTATION : Fonction d'accï¿½s de l'attribut commande du Robiot.
+*                Permet d'accï¿½der au tableau des coordonnï¿½es du 
 *                fichier LISTE DE CONTROLE, et au nombre d'arbres
-*                du terrain à mesurer.  
+*                du terrain ï¿½ mesurer.  
 *
 * SORTIE :
 * 	CCommande : commande du Robiot.
