@@ -1,7 +1,7 @@
 /**************************************************************
 *
 * Reproduction et diffusion interdites.
-* Developp� par INSA Rennes - 5 CDTI : COUTURAS / BODIN 
+* Developpe par INSA Rennes - 5 CDTI : COUTURAS / BODIN 
 * Projet ROBIOT
 *
 * SOURCE : CRobiot.h
@@ -54,7 +54,7 @@ int main()
 		petitRobiot.Mesurer();
 	}
 
-	/* On revient au point de depart. */
+	/* On revient au point de depart. *
 	cout << "Le Robiot retourne a sa position initiale. ";
 	petitRobiot.Cheminer(pointInitial);
 
@@ -152,7 +152,7 @@ int CRobiot::Cheminer(int indexArbreSuivant)
 /**************************************************************
 *
 * METHODE : CRobiot::Cheminer(coordonnees pointDestination)
-* PRESENTATION : D�placement du Robiot. Cheminement entre sa 
+* PRESENTATION : Deplacement du Robiot. Cheminement entre sa 
 *                position courante et la position du prochain 
 *                arbre, et incr�mentation de la batterie en
 *                fonction de la consommation de l'outil de 
@@ -238,14 +238,14 @@ void CRobiot::Mesurer()
 	m_mesureRobiot.setMesure(true);
 
 	/* Consommation de la batterie :
-	 * Carte m�re ARM : 12.5 Watts.
-	 * Syst�me de mesure : 30,0 Watts.
-	 * Dur�e de mesure : 5 mins. */
+	 * Carte mere ARM : 12.5 Watts.
+	 * Systeme de mesure : 30,0 Watts.
+	 * Duree de mesure : 5 mins. */
 
 	/* Calcul de la puissance en Joule. */
 	float puissanceNecessaire = (30 + 12.5) * 5 * 60;
 
-	/* Incr�mentation de la batterie pour connaitre la consommation finale. */
+	/* Incrementation de la batterie pour connaitre la consommation finale. */
 	m_batterieRobiot.addBatterie(puissanceNecessaire);
 
 	m_mesureRobiot.setMesure(false);
