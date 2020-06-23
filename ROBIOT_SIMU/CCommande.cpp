@@ -19,10 +19,12 @@
 /**************************************************************
 *
 * METHODE : CCommande::getCoordonnees(int iNumero)
-* PRESENTATION : Récupération d'un couple de coordonnées dans le tableau tabCoordonees.
+* PRESENTATION : Récupération d'un couple de coordonnées dans 
+*                le tableau tabCoordonees.
 *
 * ENTREE :
-*	int iNumero : indice du tableau correspondant au couple de coordonnées que l'on veut récupérer.
+*	int iNumero : indice du tableau correspondant au couple de 
+*                 coordonnées que l'on veut récupérer.
 * 
 * SORTIE :
 * 	coordonnees : couple de coordonnées que l'on veut récupérer.
@@ -43,7 +45,8 @@ coordonnees CCommande::getCoordonnees(int iNumero)
 /**************************************************************
 *
 * METHODE : CCommande::NombreArbre()
-* PRESENTATION : Retourne le nombre d'arbre que le Robiot a à mesurer sur la cartographie.
+* PRESENTATION : Retourne le nombre d'arbre que le Robiot a à 
+*                mesurer sur la cartographie.
 *
 * SORTIE : 
 * 	int : nombre d'arbres.
@@ -59,7 +62,9 @@ int CCommande::NombreArbre()
 /**************************************************************
 *
 * METHODE : CCommande::lireTableau()
-* PRESENTATION : Remplissage du tableau tabCoordonnees en fonction des coordonnées du fichier LISTE DE CONTROLE.
+* PRESENTATION : Remplissage du tableau tabCoordonnees en 
+*                fonction des coordonnées du fichier LISTE DE 
+*                CONTROLE.
 *
 * SORTIE :
 * 	int : retourne 0 en cas de succès.
