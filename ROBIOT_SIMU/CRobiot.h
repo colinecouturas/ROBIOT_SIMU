@@ -1,10 +1,3 @@
-#pragma once
-#include "CCommande.h"
-#include "CCapteur.h"
-#include "CBatterie.h"
-#include "CMesure.h"
-#include "CMoteur.h"
-
 /**************************************************************
 *
 * Reproduction et diffusion interdites.
@@ -20,12 +13,19 @@
 *
 ***************************************************************/
 
+#pragma once
+#include "CCommande.h"
+#include "CCapteur.h"
+#include "CBatterie.h"
+#include "CMesure.h"
+#include "CMoteur.h"
+
 class CRobiot
 {
 public:
 	CRobiot();
-	void Cheminer(int indexArbreSuivant);
-	void Cheminer(coordonnees pointDestination);
+	int Cheminer(int indexArbreSuivant);
+	int Cheminer(coordonnees pointDestination);
 	int Disjkra(coordonnees pointEntree, coordonnees pointSortie);
 	void Mesurer();
 	void setPosition(coordonnees positionActuelle);

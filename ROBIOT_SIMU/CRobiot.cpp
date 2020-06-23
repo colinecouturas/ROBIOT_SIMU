@@ -1,8 +1,3 @@
-#include "pch.h"
-#include "CRobiot.h"
-#include <math.h>
-
-
 /**************************************************************
 *
 * Reproduction et diffusion interdites.
@@ -17,6 +12,10 @@
 * DATE : 18/06/20
 *
 ***************************************************************/
+
+#include "pch.h"
+#include "CRobiot.h"
+#include <math.h>
 
 /**************************************************************
 *
@@ -94,38 +93,46 @@ CRobiot::CRobiot()
 *
 ***************************************************************/
 
-void CRobiot::Cheminer(int indexArbreSuivant)
+int CRobiot::Cheminer(int indexArbreSuivant)
 {
 	coordonnees pointCourant = m_compasRobiot.getCompas();
+	coordonnees pointDestination = m_commandeRobiot.getCoordonnees(indexArbreSuivant);
 
-	/* Calclul de la disance (Dijkstra). */
-	int distance = Disjkra(m_compasRobiot.getCompas(), m_commandeRobiot.getCoordonnees(indexArbreSuivant));
+	if (pointDestination.x > m_capteurRobiot.getLargeurTerrain() || pointDestination.y > m_capteurRobiot.getLongueurTerrain()) {
+		cout << "Les coordonn�es de  l'arbre sont hors-terrain" << endl;
+		return 1;
+	}
+	else {
 
-	/* INFO CLIENT :
-	 * 1 sur carte = 10 m en r�el. */
-	distance = distance * 10;
+		/* Calclul de la disance (Dijkstra). */
+		int distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
 
-	/* Allumage du moteur. */
-	m_moteurRobiot.setMoteur(true);
+		/* INFO CLIENT :
+		 * 1 sur carte = 10 m en r�el. */
+		distance = distance * 10;
 
-	/* Consommation de la batterie :
-	 * Carte m�re ARM : 12.5 Watts.
-	 * Vitesse : 0.42 m.
-	 * Moteur d'une roue : 14,0 Watts. */
+		/* Allumage du moteur. */
+		m_moteurRobiot.setMoteur(true);
 
-	 /* Calcul de la puissance en Joule. */
-	int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
+		/* Consommation de la batterie :
+		 * Carte m�re ARM : 12.5 Watts.
+		 * Vitesse : 0.42 m.
+		 * Moteur d'une roue : 14,0 Watts. */
 
-	/* Incr�mentation de la batterie pour connaitre la consommation finale. */
-	m_batterieRobiot.addBatterie(puissanceNecessaire);
+		 /* Calcul de la puissance en Joule. */
+		int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
+
+		/* Incr�mentation de la batterie pour connaitre la consommation finale. */
+		m_batterieRobiot.addBatterie(puissanceNecessaire);
 
 
-	/* Mise � jour des coordonn�es du point courant une fois arriv�. */
-	m_compasRobiot.setCompas(m_commandeRobiot.getCoordonnees(indexArbreSuivant));
+		/* Mise � jour des coordonn�es du point courant une fois arriv�. */
+		m_compasRobiot.setCompas(m_commandeRobiot.getCoordonnees(indexArbreSuivant));
 
-	/* Extinction du moteur. */
-	m_moteurRobiot.setMoteur(false);
-
+		/* Extinction du moteur. */
+		m_moteurRobiot.setMoteur(false);
+		return 0;
+	}
 } /* Cheminer */
 
 /**************************************************************
@@ -138,36 +145,44 @@ void CRobiot::Cheminer(int indexArbreSuivant)
 *
 ***************************************************************/
 
-void CRobiot::Cheminer(coordonnees pointDestination)
+int CRobiot::Cheminer(coordonnees pointDestination)
 {
-	coordonnees pointCourant = m_compasRobiot.getCompas();
+	if (pointDestination.x > m_capteurRobiot.getLargeurTerrain() || pointDestination.y > m_capteurRobiot.getLongueurTerrain()) {
+		cout << "Les coordonn�es de  l'arbre sont hors-terrain" << endl;
+		return 1;
+	}
+	else {
+		coordonnees pointCourant = m_compasRobiot.getCompas();
 
-	/* Calclul de la disance (Dijkstra). */
-	int distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
+		/* Calclul de la disance (Dijkstra). */
+		int distance = Disjkra(m_compasRobiot.getCompas(), pointDestination);
 
-	/* INFO CLIENT :
-	 * 1 sur carte = 10 m en r�el. */
-	distance = distance * 10;
+		/* INFO CLIENT :
+		 * 1 sur carte = 10 m en r�el. */
+		distance = distance * 10;
 
-	/* Allumage du moteur. */
-	m_moteurRobiot.setMoteur(true);
+		/* Allumage du moteur. */
+		m_moteurRobiot.setMoteur(true);
 
-	/* Consommation de la batterie :
-	 * Carte m�re ARM : 12.5 Watts.
-	 * Vitesse : 0.42 m.
-	 * Moteur d'une roue : 14,0 Watts. */
+		/* Consommation de la batterie :
+		 * Carte m�re ARM : 12.5 Watts.
+		 * Vitesse : 0.42 m.
+		 * Moteur d'une roue : 14,0 Watts. */
 
-	 /* Calcul de la puissance en Joule. */
-	int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
+		 /* Calcul de la puissance en Joule. */
+		int puissanceNecessaire = ((14 * 4) + 12.5) * (distance / 0.42); //J
 
-	/* Incr�mentation de la batterie pour connaitre la consommation finale. */
-	m_batterieRobiot.addBatterie(puissanceNecessaire);
+		/* Incr�mentation de la batterie pour connaitre la consommation finale. */
+		m_batterieRobiot.addBatterie(puissanceNecessaire);
 
-	/* Mise � jour des coordonn�es du point courant une fois arriv�. */
-	m_compasRobiot.setCompas(pointDestination);
+		/* Mise � jour des coordonn�es du point courant une fois arriv�. */
+		m_compasRobiot.setCompas(pointDestination);
 
-	/* Extinction du moteur. */
-	m_moteurRobiot.setMoteur(false);
+		/* Extinction du moteur. */
+		m_moteurRobiot.setMoteur(false);
+		return 0;
+	}
+	
 
 } /* Cheminer */
 
@@ -224,39 +239,98 @@ void CRobiot::Mesurer()
 
 } /* Mesurer */
 
-void CRobiot::setPosition(coordonnees positionActuelle)
-{
-	m_compasRobiot.setCompas(positionActuelle);
-}
-
-
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotCapteur()
+* PRESENTATION : Fonction getteur du capteur du Robiot.
+*
+* SORTIE :
+* 	CCapteur : capteur du Robiot.
+*
+***************************************************************/
 
 CCapteur CRobiot::getRobiotCapteur()
 {
 	return m_capteurRobiot;
-}
+
+} /* getRobiotCapteur */
+
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotCompas()
+* PRESENTATION : Fonction getteur de la position du Robiot.
+*
+* SORTIE :
+* 	CCompas : position du Robiot.
+*
+***************************************************************/
 
 CCompas CRobiot::getRobiotCompas()
 {
 	return m_compasRobiot;
-}
+
+} /* getRobiotCompas */
+
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotBatterie()
+* PRESENTATION : Fonction getteur de la batterie du Robiot.
+*
+* SORTIE :
+* 	CBatterie : batterie du Robiot.
+*
+***************************************************************/
 
 CBatterie CRobiot::getRobiotBatterie()
 {
 	return m_batterieRobiot;
-}
+
+} /* getRobiotBatterie */
+
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotMesure()
+* PRESENTATION : Fonction getteur de l'attribue mesure du Robiot.
+*
+* SORTIE :
+* 	CMesure : attribut mesure du Robiot.
+*
+***************************************************************/
 
 CMesure CRobiot::getRobiotMesure()
 {
 	return m_mesureRobiot;
-}
+
+} /* getRobiotMesure */
+
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotMoteur()
+* PRESENTATION : Fonction getteur du moteur du Robiot.
+*
+* SORTIE :
+* 	CMoteur : moteur du Robiot.
+*
+***************************************************************/
 
 CMoteur CRobiot::getRobiotMoteur()
 {
 	return m_moteurRobiot;
-}
+
+} /* getRobiotMoteur */
+
+/**************************************************************
+*
+* METHODE : CRobiot::getRobiotCommande()
+* PRESENTATION : Fonction getteur de la commande du Robiot.
+*
+* SORTIE :
+* 	CCommande : commande du Robiot.
+*
+***************************************************************/
 
 CCommande CRobiot::getRobiotCommande()
 {
 	return m_commandeRobiot;
-}
+
+} /* getRobiotCommande */

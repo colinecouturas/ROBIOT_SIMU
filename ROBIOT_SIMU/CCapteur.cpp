@@ -1,7 +1,3 @@
-#include "pch.h"
-#include "CCapteur.h"
-#include <iostream>
-
 /**************************************************************
 *
 * Reproduction et diffusion interdites.
@@ -16,6 +12,10 @@
 * DATE : 16/06/20
 *
 ***************************************************************/
+
+#include "pch.h"
+#include "CCapteur.h"
+#include <iostream>
 
 using namespace std;
 
