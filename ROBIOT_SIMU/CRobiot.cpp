@@ -239,6 +239,11 @@ void CRobiot::Mesurer()
 
 } /* Mesurer */
 
+
+void CRobiot::setPosition(coordonnees point) {
+	m_compasRobiot.setCompas(point);
+}
+
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotCapteur()
@@ -334,3 +339,4 @@ CCommande CRobiot::getRobiotCommande()
 	return m_commandeRobiot;
 
 } /* getRobiotCommande */
+
