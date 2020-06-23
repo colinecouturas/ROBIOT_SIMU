@@ -21,9 +21,12 @@
 *
 * METHODE : main()
 * PRESENTATION : Fonction principale.
-* Crï¿½ation d'un Robiot qui parcours une carte sur laquelle se trouvent des arbres et des obstacles.
-* Le Robiot doit mesurer certains des arbres, et informer quant ï¿½ la batterie qu'il a consommï¿½ pour se faire.
-*
+*                Création d'un Robiot qui parcours une carte 
+*                sur laquelle se trouvent des arbres et des 
+*                obstacles. Le Robiot doit mesurer certains des 
+*                arbres, et informer quant à la batterie qu'il 
+*                a consommé pour se faire.
+* 
 * SORTIE :
 * 	int : retourne 0 en cas de succï¿½s.
 * 
@@ -65,9 +68,11 @@ int main()
 *
 * METHODE : CRobiot::CRobiot()
 * PRESENTATION : Constructeur de la classe CRobiot.
-* Dans ce constructeur on associe tous les paramï¿½tres connus avec un Robiot.
-* En particulier, on va lire les fichiers d'entrï¿½e.
-* Le Robiot connait donc la position des obstacles, et des arbres ï¿½ aller mesurer.
+*                Dans ce constructeur on associe tous les 
+*                paramètres connus avec un Robiot. En
+*                particulier, on va lire les fichiers d'entrée.
+*                Le Robiot connait donc la position des obstacles, 
+*                et des arbres à aller mesurer.
 *
 ***************************************************************/
 
@@ -86,10 +91,14 @@ CRobiot::CRobiot()
 /**************************************************************
 *
 * METHODE : CRobiot::Cheminer(int indexArbreSuivant)
-* PRESENTATION : Dï¿½placement du Robiot. Cheminement entre sa position courant et la position du prochain arbre.
+* PRESENTATION : Déplacement du Robiot.  Cheminement entre sa 
+*                position courante et la position du prochain 
+*                arbre, et incrémentation de la batterie en
+*                fonction de la consommation de l'outil de 
+*                mesure.
 *
 * ENTREE :
-* 	int indexArbreSuivant : indice des coordonnï¿½es du prochain arbre.
+* 	int indexArbreSuivant : indice des coordonnées du prochain arbre.
 *
 ***************************************************************/
 
@@ -138,7 +147,11 @@ int CRobiot::Cheminer(int indexArbreSuivant)
 /**************************************************************
 *
 * METHODE : CRobiot::Cheminer(coordonnees pointDestination)
-* PRESENTATION : Dï¿½placement du Robiot. Cheminement entre sa position courant et la position du prochain arbre.
+* PRESENTATION : Déplacement du Robiot.  Cheminement entre sa 
+*                position courante et la position du prochain 
+*                arbre, et incrémentation de la batterie en
+*                fonction de la consommation de l'outil de 
+*                mesure.
 *
 * ENTREE :
 * 	coordonnees pointDestination : coordonnï¿½es du prochain arbre.
@@ -192,7 +205,7 @@ int CRobiot::Cheminer(coordonnees pointDestination)
 * PRESENTATION : Calcul de la distance avec l'algorithme de Disjkra.
 *
 * SORTIE :
-* 	int : distance la plus courte calculï¿½e par l'algotithme de Disjkra.
+* 	int : distance la plus courte calculée par l'algotithme de Disjkra.
 *
 ***************************************************************/
 
@@ -216,7 +229,9 @@ int CRobiot::Disjkra(coordonnees pointEntree, coordonnees pointSortie)
 /**************************************************************
 *
 * METHODE : CRobiot::Mesurer()
-* PRESENTATION : Mesure de l'arbre courant.
+* PRESENTATION : Mesure de l'arbre courant et incrémentation de 
+*                la batterie en fonction de la consommation de 
+*                l'outil de mesure.
 *
 ***************************************************************/
 
@@ -247,7 +262,10 @@ void CRobiot::setPosition(coordonnees point) {
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotCapteur()
-* PRESENTATION : Fonction getteur du capteur du Robiot.
+* PRESENTATION : Fonction d'accès de l'attribut capteur du Robiot.
+*                Permet d'accéder au tableau des obstacles et des arbres 
+*                correspondant au fichier CARTOGRAPHIE, et à la largeur 
+*                et longueur du terrain.
 *
 * SORTIE :
 * 	CCapteur : capteur du Robiot.
@@ -263,7 +281,8 @@ CCapteur CRobiot::getRobiotCapteur()
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotCompas()
-* PRESENTATION : Fonction getteur de la position du Robiot.
+* PRESENTATION : Fonction d'accès de l'attribut compas du Robiot.
+*                Permet de connaitre la position du Robiot.
 *
 * SORTIE :
 * 	CCompas : position du Robiot.
@@ -279,7 +298,9 @@ CCompas CRobiot::getRobiotCompas()
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotBatterie()
-* PRESENTATION : Fonction getteur de la batterie du Robiot.
+* PRESENTATION : Fonction d'accès de l'attribut batterie du Robiot.
+*                Permet de connaitre le niveau de batterue du 
+*                Robiot (en Joules).
 *
 * SORTIE :
 * 	CBatterie : batterie du Robiot.
@@ -295,7 +316,8 @@ CBatterie CRobiot::getRobiotBatterie()
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotMesure()
-* PRESENTATION : Fonction getteur de l'attribue mesure du Robiot.
+* PRESENTATION : Fonction d'accès de l'attribut mesure du Robiot.
+*                Permet de connaitre l'état du système de mesure du Robiot.
 *
 * SORTIE :
 * 	CMesure : attribut mesure du Robiot.
@@ -311,7 +333,8 @@ CMesure CRobiot::getRobiotMesure()
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotMoteur()
-* PRESENTATION : Fonction getteur du moteur du Robiot.
+* PRESENTATION : Fonction d'accès de l'attribut moteur du Robiot.
+*                Permet de connaitre l'état du moteur du Robiot
 *
 * SORTIE :
 * 	CMoteur : moteur du Robiot.
@@ -327,7 +350,10 @@ CMoteur CRobiot::getRobiotMoteur()
 /**************************************************************
 *
 * METHODE : CRobiot::getRobiotCommande()
-* PRESENTATION : Fonction getteur de la commande du Robiot.
+* PRESENTATION : Fonction d'accès de l'attribut commande du Robiot.
+*                Permet d'accéder au tableau des coordonnées du 
+*                fichier LISTE DE CONTROLE, et au nombre d'arbres
+*                du terrain à mesurer.  
 *
 * SORTIE :
 * 	CCommande : commande du Robiot.

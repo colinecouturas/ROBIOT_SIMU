@@ -5,7 +5,8 @@
 * Projet ROBIOT
 *
 * SOURCE : CCapteur.cpp
-* PRESENTATION : Fichier source de la gestion des capteurs de signaux balise (Bordures de terrain, Obstacles, Arbres).
+* PRESENTATION : Fichier source de la gestion des capteurs de 
+*                signaux balise (Bordures de terrain, Obstacles, Arbres).
 
 * AUTEUR : BODIN / COUTURAS
 * VERSION CVS : V1
@@ -22,7 +23,8 @@ using namespace std;
 /**************************************************************
 *
 * METHODE : CCapteur::LireCartographie()
-* PRESENTATION : Récupération d'un couple de coordonnées d'un obstacle dans le tableau tabCoordoneesObstacle.
+* PRESENTATION : Récupération d'un couple de coordonnées d'un 
+*                obstacle dans le tableau tabCoordoneesObstacle.
 *
 * SORTIE :
 * 	int : retourne 0 en cas de succès.
